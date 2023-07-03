@@ -61,4 +61,20 @@ class Show extends Model
     {
         return $this->belongsToMany(ArtistType::class);
     }
+
+    public function representationsString(){
+
+        $count = count($this->representations);
+        if($count == 0){
+            return "Pas de représentations";
+        }
+
+        if($count == 1) return "1 représentation";
+
+        return "$count représentations";
+    }
+
+    public function bookableString(){
+       return $this->bookable ? 'Réservable' : 'Pas réservable';
+    }
 }
