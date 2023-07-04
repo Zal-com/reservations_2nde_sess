@@ -52,6 +52,8 @@ class ShowController extends Controller
     {
         $show = Show::where('slug', '=', $slug)->first();
 
+        $representations = $show->representations->sortBy('when');
+
         //Récupérer les artistes du spectacle et les grouper par type
         $collaborators = [];
 
@@ -63,6 +65,7 @@ class ShowController extends Controller
 
         return view('show.show', [
             'show' => $show,
+            'representations' => $representations,
             'collaborateurs' => $collaborators,
         ]);
     }

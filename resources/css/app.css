@@ -12,3 +12,21 @@ span{
 span + span{
     border-left: 2px solid grey;
 }
+
+h1{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+h2{
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.striped tbody tr:nth-of-type(odd){
+    background-color: #00000010;
+}
+
+.striped tbody tr:nth-of-type(even){
+    background-color: white;
+}
