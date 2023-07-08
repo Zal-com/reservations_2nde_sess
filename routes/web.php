@@ -33,3 +33,4 @@ Route::get('/location', [LocationController::class,'index'])
 
 Route::get('/location/{slug}', [LocationController::class, 'show'])
     ->name('location.element');
+

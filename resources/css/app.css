@@ -23,10 +23,10 @@ h2{
     font-weight: 500;
 }
 
-.striped tbody tr:nth-of-type(odd){
+.striped tbody:nth-of-type(odd){
     background-color: #00000010;
 }
 
-.striped tbody tr:nth-of-type(even){
+.striped tbody:nth-of-type(even){
     background-color: white;
 }

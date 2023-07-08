@@ -18,8 +18,7 @@
     <p>{{$show->description}}</p>
 
     <h2>Showtime</h2>
-    <table class="table-auto striped w-full">
-
+    <table class="table-auto striped w-1/2">
         @foreach($representations as $representation)
             @php
                 if(! isset($currentDate)){
@@ -27,24 +26,23 @@
                 }
             @endphp
             @if($currentDate == \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $representation->when))
-                <tr class="flex justify-between ">
-                    <td class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                            <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
-                        </svg>
-                        {{$representation->location->designation}}
+                <tr class="align-middle">
+                    <td class="align-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline-block">
+                                <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
+                            </svg>
+                            {{$representation->location->designation}}
                     </td>
-                    <td class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <td class="align-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline-block">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
                         </svg>
                         {{$currentDate->format('H:i')}}
                     </td>
-                    <td>
-                        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Réserver</a>
+                    <td class="align-middle">
+                        <a href="#" class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Réserver</a>
                     </td>
                 </tr>
-
             @else
                 @php
                     $currentDate = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $representation->when);
@@ -53,61 +51,26 @@
                 <th class="text-white px-2" colspan="3">{{$currentDate->format('l d F')}}</th>
                 </thead>
                 <tbody>
-                <tr class="flex justify-between">
-                    <td class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                            <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
-                        </svg>
-                        {{$representation->location->designation}}
+                <tr class="align-middle">
+                    <td class="align-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline-block">
+                                <path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" />
+                            </svg>
+                            {{$representation->location->designation}}
                     </td>
-                    <td class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <td class="align-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline-block">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
                         </svg>
                         {{$currentDate->format('H:i')}}
+
                     </td>
-                    <td>
-                        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Réserver</a>
+                    <td class="align-middle">
+                        <a href="#" class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Réserver</a>
                     </td>
                 </tr>
                 @endif
                 @endforeach
                 </tbody>
     </table>
-    {{--
-    <h2>Liste des artistes</h2>
-    <p>
-        <span class="text-st">Auteur:</span>
-        @foreach ($collaborateurs['auteur'] as $auteur)
-            {{ $auteur->firstname }} {{ $auteur->lastname }}
-            @if($loop->iteration === $loop->count-1)
-                et
-            @elseif(!$loop->last)
-                ,
-            @endif
-        @endforeach
-    </p>
-    <p>
-        <span class="text-st">Metteur en scène:</span>
-        @foreach ($collaborateurs['scénographe'] as $scenographe)
-            {{ $scenographe->firstname }} {{ $scenographe->lastname }}
-            @if($loop->iteration === $loop->count-1)
-                et
-            @elseif(!$loop->last)
-                ,
-            @endif
-        @endforeach
-    </p>
-    <p>
-        <span class="text-st">Distribution:</span>
-        @foreach ($collaborateurs['comédien'] as $comedien)
-            {{ $comedien->firstname }} {{ $comedien->lastname }}
-            @if($loop->iteration === $loop->count-1)
-                et
-            @elseif(!$loop->last)
-                ,
-            @endif
-        @endforeach
-    </p>
-    --}}
 @endsection
