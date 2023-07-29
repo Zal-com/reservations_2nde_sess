@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
 
 class NewsFeedTest extends Model implements Feedable
 {
-    use CrudTrait;
+
     public function toFeedItem(): FeedItem
     {
         return FeedItem::create([

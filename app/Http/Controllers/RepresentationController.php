@@ -93,4 +93,8 @@ class RepresentationController extends Controller
     {
         //
     }
+
+    public function checkout(){
+
+    }
 }

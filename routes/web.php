@@ -1,36 +1,78 @@
 <?php
 
-use App\Http\Controllers\ArtistController;
-use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ShowController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
-Route::get('/', function(){
+Route::get('/', function () {
     return view('home');
-})
-->name('home');
+})->name('home');
 
-//Artists routes
-Route::get('/artist', [ArtistController::class, 'index'])
-    ->name('artist.list');
-Route::get('/artist/{name}-{firstname}', [ArtistController::class,'show'])
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Artist Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/artist', [ArtistController::class, 'index',])
+    ->name('artist.index');
+Route::get('/artist/{id}', [ArtistController::class,'show',])
+    ->where('id', '[0-9]+')
     ->name('artist.show');
 
-//Shows routes
-Route::get('/show', [ShowController::class, 'index'])
-    ->name('show.list');
 
-Route::get('/show/{slug}', [ShowController::class, 'show'])
-    ->where('id', '[0-9]+')
-    ->name('show.show');
+/*
+|--------------------------------------------------------------------------
+| Location Routes
+|--------------------------------------------------------------------------
+*/
 
-//Location Routes
-Route::get('/location', [LocationController::class,'index'])
-    ->name('location.list');
+Route::get('/location', [LocationController::class, 'index',])
+    ->name('location.index');
+Route::get('/location/{slug}/{id}', [LocationController::class, 'show',])
+    ->where('id', '[0-9]+')->name('location.show');
 
-Route::get('/location/{slug}', [LocationController::class, 'show'])
-    ->name('location.element');
+/*
 
+/*
+|--------------------------------------------------------------------------
+| Show Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/show', [ShowController::class, 'index',])
+    ->name('show.index');
+Route::get('/show/{slug}/representations', [ShowController::class, 'representations',])
+    ->where('id', '[0-9]+')->name('show.representations');
+
+Route::group([
+    'prefix' => '/stripe',
+    'as'=>'stripe.'
+], function(){
+    Route::get('/payment', [\App\Http\Controllers\StripeController::class, 'index'])->name('index');
+    Route::post('/payment', [\App\Http\Controllers\StripeController::class, 'store'])->name('store');
+});
+
+Route::stripeWebhooks('stripe-webhook');
+
+require __DIR__.'/auth.php';
