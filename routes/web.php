@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShowController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,7 +53,7 @@ Route::get('/artist/{id}', [ArtistController::class,'show',])
 
 Route::get('/location', [LocationController::class, 'index',])
     ->name('location.index');
-Route::get('/location/{slug}/{id}', [LocationController::class, 'show',])
+Route::get('/location/{slug}', [LocationController::class, 'show',])
     ->where('id', '[0-9]+')->name('location.show');
 
 /*
@@ -62,6 +66,7 @@ Route::get('/location/{slug}/{id}', [LocationController::class, 'show',])
 
 Route::get('/show', [ShowController::class, 'index',])
     ->name('show.index');
+Route::get('/show/{slug}', [ShowController::class, 'show'])->name('show.show');
 Route::get('/show/{slug}/representations', [ShowController::class, 'representations',])
     ->where('id', '[0-9]+')->name('show.representations');
 
@@ -69,10 +74,9 @@ Route::group([
     'prefix' => '/stripe',
     'as'=>'stripe.'
 ], function(){
-    Route::get('/payment', [\App\Http\Controllers\StripeController::class, 'index'])->name('index');
-    Route::post('/payment', [\App\Http\Controllers\StripeController::class, 'store'])->name('store');
+    Route::post('/checkout', [StripeController::class, 'index'])->name('checkout');
+    Route::post('/payment', [StripeController::class, 'store'])->name('confirm');
 });
 
-Route::stripeWebhooks('stripe-webhook');
 
 require __DIR__.'/auth.php';

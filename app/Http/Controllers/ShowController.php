@@ -14,7 +14,7 @@ class ShowController extends Controller
      */
     public function index()
     {
-        $shows = Show::all();
+        $shows = Show::where('bookable', 1)->get();
 
         return view('show.index', [
             'shows' => $shows,
@@ -50,7 +50,7 @@ class ShowController extends Controller
      */
     public function show($slug)
     {
-        $show = Show::where('slug', '=', $slug)->first();
+        $show = Show::where('slug', $slug)->first();
 
         $representations = $show->representations->sortBy('when');
 
@@ -62,7 +62,6 @@ class ShowController extends Controller
             $collaborators[$at->type->type][] = $at->artist;
         }
 */
-
         return view('show.show', [
             'show' => $show,
             'representations' => $representations,

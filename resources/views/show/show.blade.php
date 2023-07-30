@@ -40,10 +40,24 @@
                         {{$currentDate->format('H:i')}}
                     </td>
                     <td class="align-middle">
-                        <form action="/create-checkout-session" method="post">
+                        <form method="post" action="{{route('stripe.checkout')}}">
                             @csrf
-                            <input type="submit" value="Réserver" class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
+                            <input type="hidden" name="representation_id" value="{{$representation->id}}">
+                            <select name="quantity">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="1">10</option>
+                            </select>
+                            <input type="submit" value="Réserver">
                         </form>
+
                     </td>
                 </tr>
             @else
@@ -69,11 +83,24 @@
 
                     </td>
                     <td class="align-middle">
-                        <form action="/create-checkout-session" method="post">
+                        <form method="post" action="{{route('stripe.checkout')}}">
                             @csrf
-                            <input type="submit" value="Réserver" class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
+                            <input type="hidden" name="representation_id" value="{{$representation->id}}">
+                            <select name="quantity">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="1">10</option>
+                            </select>
+                            <input type="submit" value="Réserver">
                         </form>
-
+                        </form>
                     </td>
                 </tr>
                 @endif

@@ -13,7 +13,7 @@
                             <img class="rounded-t-lg" src="https://via.placeholder.com/400x300" alt="" />
                         </a>
                         <div class="p-5">
-                            <a href="{{ route('location.element', ['slug' => $item->slug]) }}">
+                            <a href="{{ route('location.show', ['slug' => $item->slug]) }}">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $item->designation }}</h5>
                             </a>
                             @if( $item->website )
