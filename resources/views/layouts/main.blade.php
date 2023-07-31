@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
+    @livewireStyles
     @yield('styles')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -25,14 +26,13 @@
         </h5>
         <div class="flex md:order-2 mr-24">
             @guest()
-                <a href="{{ route('login') }}" class="btn text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0">{{__('Log in')}}</a>
+                <a href="{{ route('login') }}" class="btn btn-primary hover:text-white font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0">{{__('Log in')}}</a>
             @endguest
             @auth()
-                <a href="" class="btn text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0">Profil</a>
-
-                <form action="{{route('logout')}}" method="post">
+                <a href="{{route('profile.edit')}}" class="btn btn-primary hover:text-white font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0">Profil</a>
+                <form action="{{route('logout')}}" method="post" class="ml-2">
                     @csrf
-                    <input type="submit" value="{{__('Log out')}}" class="btn text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0">
+                    <input type="submit" value="{{__('Log out')}}" class="btn btn-primary hover:text-white font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0 cursor-pointer">
                 </form>
             @endauth
             <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-cta" aria-expanded="false">
@@ -58,8 +58,9 @@
 <div class="container relative mx-auto">
     @yield('content')
 </div>
-<footer class="p-4 bg-indigo-500 md:p-6">
+<footer class="p-4">
 </footer>
+@livewireScripts
 @yield('scripts')
 </body>
 </html>

@@ -95,6 +95,7 @@
     @endif
     <form method="POST" action="{{ route('stripe.confirm') }}" class="card-form mt-3 mb-3">
         @csrf
+        <input type="hidden" name="representation_id" value="{{$representation->id}}">
         <input type="hidden" name="quantity" value="{{$quantity}}">
         <input type="hidden" name="unit_price" value="{{$representation->show->price}}">
         <input type="hidden" name="payment_method" class="payment-method">

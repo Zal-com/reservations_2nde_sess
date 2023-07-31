@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Representation;
 use Illuminate\Http\Request;
+use JetBrains\PhpStorm\NoReturn;
 use Stripe\Stripe;
 use Stripe\StripeClient;
 
@@ -39,6 +40,11 @@ class StripeController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        return back()->with('message', 'Product purchased successfully!');
+
+        return redirect()->route('stripe.success', ['id' => $request->get('representation_id'), 'qte' => $request->get('quantity')]);
+    }
+
+    public function success($id, $qte){
+
     }
 }

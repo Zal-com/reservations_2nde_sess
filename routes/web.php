@@ -71,11 +71,12 @@ Route::get('/show/{slug}/representations', [ShowController::class, 'representati
     ->where('id', '[0-9]+')->name('show.representations');
 
 Route::group([
-    'prefix' => '/stripe',
+    'prefix' => '/reservation',
     'as'=>'stripe.'
 ], function(){
     Route::post('/checkout', [StripeController::class, 'index'])->name('checkout');
     Route::post('/payment', [StripeController::class, 'store'])->name('confirm');
+    Route::get('/success?{id}_{qte}', [StripeController::class, 'success'])->name('success');
 });
 
 

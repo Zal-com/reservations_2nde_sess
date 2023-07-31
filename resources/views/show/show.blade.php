@@ -55,7 +55,7 @@
                                 <option value="9">9</option>
                                 <option value="1">10</option>
                             </select>
-                            <input type="submit" value="Réserver">
+                            <button type="submit" class="btn btn-primary hover:text-white font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0">Réserver</button>
                         </form>
 
                     </td>
@@ -64,7 +64,7 @@
                 @php
                     $currentDate = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $representation->when);
                 @endphp
-                <thead class="bg-black text-left">
+                <thead class="text-left">
                 <th class="text-white px-2" colspan="3">{{$currentDate->format('l d F')}}</th>
                 </thead>
                 <tbody>
@@ -98,8 +98,7 @@
                                 <option value="9">9</option>
                                 <option value="1">10</option>
                             </select>
-                            <input type="submit" value="Réserver">
-                        </form>
+                            <button type="submit" class="btn btn-primary hover:text-white font-medium rounded-lg px-5 py-2.5 text-center mr-3 md:mr-0">Réserver</button>
                         </form>
                     </td>
                 </tr>

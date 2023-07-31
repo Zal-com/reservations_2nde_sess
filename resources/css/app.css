@@ -1,8 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root{
+    --text: #1a0a0a;
+    --background : #fafafa;
+    --primary : #43b1b1;
+    --secondary : #c4c4e9;
+    --accent : #3ea3a3;
+    font-family: Roboto;
+    color: var(--text);
+}
+
+body, nav{
+    background-color: var(--background) !important;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: Raleway !important;
+}
+
+a:hover{
+    color: var(--accent);
+}
+
+.btn-primary{
+    background: var(--primary) !important;
+}
+
+.btn-secondary{
+    background: var(--secondary) !important;
+}
 
 span{
     display: flex;
@@ -23,6 +53,10 @@ h2{
     font-weight: 500;
 }
 
+thead{
+    background-color: var(--text);
+}
+
 .striped tbody:nth-of-type(odd){
     background-color: #00000010;
 }
@@ -33,4 +67,15 @@ h2{
 
 .card-class thead th+th{
     border-left: 1px solid #00000030;
+}
+
+.card-th{
+    background-color: transparent;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--text);
 }
