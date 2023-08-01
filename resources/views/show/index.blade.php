@@ -4,25 +4,13 @@
 
 @section('content')
     <div class="container px-5 py-4 my-auto flex">
-        <aside class="max-w-sm h-fit bg-white border border-gray-200 rounded-lg shadow my-2 mx-auto">
+        <aside class="max-w-sm h-fit bg-white border border-gray-200 rounded-lg shadow my-2 mt-6">
             <ul>
-                @livewire('search-bar')
-                <li class="bg-white border border-gray-200 rounded-lg shadow my-2 mx-2 p-2">
-                    <input type="radio" name="filter" id="asc">
-                    <label for="asc">Prix croissant</label>
+                <li>
+                    @livewire('search-bar')
                 </li>
-                <li class="bg-white border border-gray-200 rounded-lg shadow my-2 mx-2 p-2">
-                    <input type="radio"name="filter" id="desc">
-                    <label for="desc">Prix décroissant</label>
-                </li>
-                <li class="bg-white border border-gray-200 rounded-lg shadow my-2 mx-2 p-2">
-                    <input type="radio" name="filter" id="today">
-                    <label for="today">Aujourd'hui</label>
-                </li>
-                <li class="bg-white border border-gray-200 rounded-lg shadow my-2 mx-2 p-2">
-                    <input type="radio" name="filter" id="tomorrow">
-                    <label for="tomorrow">Demain</label>
-                </li>
+                <hr style="border: 1.5px solid grey; opacity: 20%; margin-left: 5%; margin-right: 5%">
+                @livewire('filters')
             </ul>
         </aside>
         @livewire('search-results')
