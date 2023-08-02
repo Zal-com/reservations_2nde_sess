@@ -72,11 +72,15 @@ Route::get('/show/{slug}/representations', [ShowController::class, 'representati
 
 Route::group([
     'prefix' => '/reservation',
-    'as'=>'stripe.'
+    'as'=>'stripe.',
+    'middleware' => 'auth',
 ], function(){
-    Route::post('/checkout', [StripeController::class, 'index'])->name('checkout');
-    Route::post('/payment', [StripeController::class, 'store'])->name('confirm');
-    Route::get('/success?{id}_{qte}', [StripeController::class, 'success'])->name('success');
+    Route::post('/checkout', [StripeController::class, 'index'])
+        ->name('checkout');
+    Route::post('/payment', [StripeController::class, 'store'])
+        ->name('confirm');
+    Route::get('/success?{id}_{qte}', [StripeController::class, 'success'])
+        ->name('success');
 });
 
 

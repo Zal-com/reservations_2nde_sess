@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Representation;
+use App\Models\RepresentationUser;
 use Illuminate\Http\Request;
 use JetBrains\PhpStorm\NoReturn;
 use Stripe\Stripe;
@@ -35,11 +36,20 @@ class StripeController extends Controller
         try {
             $user->createOrGetStripeCustomer();
             $user->updateDefaultPaymentMethod($paymentMethod);
-            $user->charge($request->get('quantity') * $request->get('unit_price') * 100, $paymentMethod, ['currency' => 'eur']);
+            $payment = $user->charge($request->get('quantity') * $request->get('unit_price') * 100, $paymentMethod, ['currency' => 'eur']);
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
 
+        $reservation = new RepresentationUser();
+        $reservation->user_id = \Auth::user()->id;
+        $reservation->representation_id = $request->get('representation_id');
+        $reservation->seats = $request->get('quantity');
+        $reservation->unit_price = $request->get('unit_price');
+        $reservation->total = $payment->amount/100;
+        $reservation->payment_id = $payment->id;
+
+        $reservation->save();
 
         return redirect()->route('stripe.success', ['id' => $request->get('representation_id'), 'qte' => $request->get('quantity')]);
     }

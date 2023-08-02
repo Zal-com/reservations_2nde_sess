@@ -79,3 +79,7 @@ footer{
     width: 100%;
     background-color: var(--text);
 }
+
+#reservations .grid:not(:last-of-type) {
+    border-bottom: 2px solid #00000020;
+}

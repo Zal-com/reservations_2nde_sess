@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RepresentationUser extends Model
 {
+    use CrudTrait;
 
     use HasFactory;
 
@@ -16,9 +17,12 @@ class RepresentationUser extends Model
         'representation_id',
         'user_id',
         'seats',
+        'unit_price',
+        'total',
+        'payment_id'
     ];
 
-    protected $table = 'artist_type';
+    protected $table = 'representation_user';
 
     public $timestamps = false;
 

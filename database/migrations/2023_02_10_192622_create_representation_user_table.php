@@ -20,6 +20,9 @@ return new class extends Migration
                 $table->foreignId('representation_id');
                 $table->foreignId('user_id');
                 $table->integer('seats');
+                $table->double('unit_price');
+                $table->double('quantity');
+                $table->string('payment_id');
                 // constraints
                 $table->foreign('representation_id')
                     ->references('id')
