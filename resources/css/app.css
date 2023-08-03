@@ -57,11 +57,11 @@ thead{
     background-color: var(--text);
 }
 
-.striped tbody:nth-of-type(odd){
+.striped tbody tr:nth-of-type(odd){
     background-color: #00000010;
 }
 
-.striped tbody:nth-of-type(even){
+.striped tbody tr:nth-of-type(even){
     background-color: white;
 }
 

@@ -20,6 +20,8 @@ class Artist extends Model
      */
     protected $fillable = ['firstname', 'lastname'];
 
+    protected $appends = ['full_name'];
+
     /**
      * The table associated with the model.
      *
@@ -49,4 +51,9 @@ class Artist extends Model
     {
         return $this->belongsToMany(Show::class);
     }*/
+
+    public function getFullNameAttribute()
+    {
+        return $this->lastname . ' ' . $this->firstname;
+    }
 }

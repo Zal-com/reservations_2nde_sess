@@ -55,7 +55,7 @@
         </div>
     </div>
 </nav>
-<div class="container relative mx-auto">
+<div class="container relative w-[70%] mx-auto">
     @yield('content')
 </div>
 <footer class="p-4">

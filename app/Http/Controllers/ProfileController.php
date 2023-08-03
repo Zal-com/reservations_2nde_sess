@@ -20,7 +20,7 @@ class ProfileController extends Controller
 
         return view('profile.edit', [
             'user' => $request->user(),
-            'reservations' => RepresentationUser::where('user_id', $request->user()->id)->get()
+            'reservations' => RepresentationUser::where('user_id', $request->user()->id)->where('status', 1)->get()
         ]);
     }
 

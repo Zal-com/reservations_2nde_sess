@@ -11,7 +11,7 @@
     <div id="reservations">
         @foreach($reservations as $reservation)
             <div class="grid grid-cols-4 grid-rows-2 gap-0 auto-cols-auto">
-                <div class="col-span-2 p-2">
+                <div class="col-span-2 p-2 my-auto">
                     <h2>{{$reservation->representation->show->title}}</h2>
                 </div>
                 <div class="col-span-2 col-start-1 row-start-2 p-2">
@@ -27,8 +27,11 @@
                         {{Carbon\Carbon::make($reservation->representation->when)->format('d/m/Y')}}
                     </div>
                 </div>
-                <div class="col-start-4 row-start-1 p-2">
-                    <button class="btn bg-primary border-[10px]">Annuler</button>
+                <div class="col-start-4 row-start-1 p-2 my-auto">
+                    <form method="post" action="{{route('stripe.cancel', ['id' => $reservation->id])}}">
+                        @csrf
+                        <button type="submit" class="btn bg-primary border-[10px]">Annuler</button>
+                    </form>
                 </div>
                 <div class="col-start-4 row-start-2 p-2">
                     <button>

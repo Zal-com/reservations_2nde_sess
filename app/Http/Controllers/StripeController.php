@@ -15,6 +15,11 @@ class StripeController extends Controller
     public function index(Request $request)
     {
 
+        $validated = $request->validate([
+            'quantity' => 'required|integer|max:10|min:1',
+            'representation_id' => 'required|numeric'
+        ]);
+
         $representation = Representation::find($request->get('representation_id'));
         $quantity = $request->get('quantity');
 
@@ -55,6 +60,32 @@ class StripeController extends Controller
     }
 
     public function success($id, $qte){
+
+    }
+
+    public function cancel($id){
+        $reservation = RepresentationUser::find($id);
+
+        if($reservation->user_id != \Auth::id()){
+            return redirect()->to('home')->with('error', 'Vous n\'êtes pas authorisé à faire cela')->status(401);
+        }
+
+        $stripe = new StripeClient(env('STRIPE_SECRET'));
+
+        try {
+            $stripe->refunds->create([
+                'payment_intent' => $reservation->payment_id,
+            ]);
+        }
+        catch (\Exception $e){
+            return back()->with('error', $e->getMessage());
+        }
+
+        // annuler la reservation et changer un status
+        $reservation->status = 0;
+        $reservation->save();
+
+        return redirect()->route('profile.edit')->with('success', 'Votre réservations a bien été annulée, vous serez bientôt remboursés');
 
     }
 }

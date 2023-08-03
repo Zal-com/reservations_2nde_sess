@@ -19,7 +19,8 @@ class RepresentationUser extends Model
         'seats',
         'unit_price',
         'total',
-        'payment_id'
+        'payment_id',
+        'status'
     ];
 
     protected $table = 'representation_user';

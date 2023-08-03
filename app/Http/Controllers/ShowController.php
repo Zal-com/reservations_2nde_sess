@@ -54,6 +54,7 @@ class ShowController extends Controller
 
         $representations = $show->representations->sortBy('when');
 
+        $artistes = $show->artistsTypes;
         //Récupérer les artistes du spectacle et les grouper par type
         $collaborators = [];
 

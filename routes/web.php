@@ -22,6 +22,8 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/populate', [\App\Http\Controllers\PopulateByApiController::class, 'index']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -81,6 +83,8 @@ Route::group([
         ->name('confirm');
     Route::get('/success?{id}_{qte}', [StripeController::class, 'success'])
         ->name('success');
+    Route::post('{id}/cancel', [StripeController::class, 'cancel'])
+        ->name('cancel');
 });
 
 

@@ -3,29 +3,59 @@
 @section('title', $show->title)
 
 @section('content')
-    <h1>{{ $show->title }}</h1>
+    <h1 class="mb-4">{{ $show->title }}</h1>
 
-    @if($show->poster_url)
-        <p><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></p>
-    @else
-        <canvas width="200" height="100" style="border:1px solid #000000;"></canvas>
-    @endif
+    <div class="inline-flex">
+        <div class="mr-8">
+            <div>
+                @if($show->poster_url)
+                    <p><img src="{{ Storage::url($show->poster_url) }}" alt="{{ $show->title }}" width="200"></p>
+                @else
+                    <canvas width="200" height="100" style="border:1px solid #000000;"></canvas>
+                @endif
+            </div>
+        </div>
+        <div class="w-[100%]">
+            <div class="w-[100%]">
+                @if($show->location)
+                    <p class="text-st"><b>Lieu de création :</b> {{ $show->location->designation }}</p>
+                @endif
+            </div>
+            <div>
+                Colabs
+            </div>
+            <div>
+                <h2>Synopsis</h2>
+                <p class="text-justify">{{$show->description}}</p>
+            </div>
+        </div>
+    </div>
 
-    @if($show->location)
-        <p class="text-st">Lieu de création: {{ $show->location->designation }}</p>
-    @endif
-    <h2>Synopsis</h2>
-    <p>{{$show->description}}</p>
 
     <h2>Showtime</h2>
-    <table class="table-auto striped w-1/2">
-        @foreach($representations as $representation)
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <table class="table-auto striped w-full">
+        @if(count($representations) == 1)
             @php
                 if(! isset($currentDate)){
-                    $currentDate = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $representation->when);
+                    $currentDate = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $representations[0]->when);
                 }
             @endphp
-            @if($currentDate == \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $representation->when))
+            <thead class="text-left">
+            <th class="text-white px-2" colspan="3">{{$currentDate->format('l d F')}}</th>
+            </thead>
+        @endif
+
+        @foreach($representations as $representation)
+            @if( isset($currentDate) and $currentDate == \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $representation->when))
                 <tr class="align-middle">
                     <td class="align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline-block">
@@ -39,7 +69,7 @@
                         </svg>
                         {{$currentDate->format('H:i')}}
                     </td>
-                    <td class="align-middle">
+                    <td class="align-middle float-right pr-5">
                         <form method="post" action="{{route('stripe.checkout')}}">
                             @csrf
                             <input type="hidden" name="representation_id" value="{{$representation->id}}">
@@ -82,7 +112,7 @@
                         {{$currentDate->format('H:i')}}
 
                     </td>
-                    <td class="align-middle">
+                    <td class="align-middle float-right pr-5">
                         <form method="post" action="{{route('stripe.checkout')}}">
                             @csrf
                             <input type="hidden" name="representation_id" value="{{$representation->id}}">

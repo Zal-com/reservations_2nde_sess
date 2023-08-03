@@ -2,7 +2,7 @@
 <div class="p-4 md:w-1/3 card h-100%">
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow my-2 mx-auto">
         <a href="{{route('show.show', ['slug' => $item['slug']])}}">
-            <img class="rounded-t-lg" src="https://via.placeholder.com/400x300" alt="" />
+            <img class="rounded-t-lg" src="{{Storage::url($item->poster_url)}}" alt="" />
         </a>
         <div class="p-5 m-h-300">
             <a href="{{route('show.show', ['slug' => $item['slug']])}}">

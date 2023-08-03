@@ -23,6 +23,7 @@ return new class extends Migration
                 $table->double('unit_price');
                 $table->double('quantity');
                 $table->string('payment_id');
+                $table->tinyInteger('status')->default(1);
                 // constraints
                 $table->foreign('representation_id')
                     ->references('id')

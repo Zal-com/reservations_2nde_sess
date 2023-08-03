@@ -15,7 +15,7 @@ use BackpackImport\ImportOperation;
 class ShowCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as TraitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -90,7 +90,8 @@ class ShowCrudController extends CrudController
                 'name' => 'location_id',
                 'entity' => 'location',
                 'model' => 'App\Models\Location',
-                'attribute' => 'designation'
+                'attribute' => 'designation',
+                'tab' => 'Show'
             ]
         );
         CRUD::addField(
@@ -98,6 +99,7 @@ class ShowCrudController extends CrudController
                 'label' => 'Titre',
                 'type' => 'text',
                 'name' => 'title',
+                'tab' => 'Show'
             ]
         );
         CRUD::addField(
@@ -105,6 +107,7 @@ class ShowCrudController extends CrudController
                 'label' => 'Synopsis',
                 'type' => 'textarea',
                 'name' => 'description',
+                'tab' => 'Show'
             ]
         );
         CRUD::addField(
@@ -112,6 +115,8 @@ class ShowCrudController extends CrudController
                 'label' => 'Poster',
                 'type' => 'upload',
                 'name' => 'poster_url',
+                'withFiles' => true,
+                'tab' => 'Show'
             ]
         );
         CRUD::addField(
@@ -119,6 +124,7 @@ class ShowCrudController extends CrudController
                 'label' => 'Price',
                 'type' => 'number',
                 'name' => 'price',
+                'tab' => 'Show'
             ]
         );
         CRUD::addField(
@@ -126,8 +132,28 @@ class ShowCrudController extends CrudController
                 'label' => 'Bookable',
                 'type' => 'boolean',
                 'name' => 'bookable',
+                'tab' => 'Show'
             ]
         );
+
+        CRUD::addField(
+            [
+                'label' => 'Slug',
+                'type' => 'hidden',
+                'name' => 'slug',
+            ]
+        );
+
+        CRUD::addField([
+            'label' => 'Comédiens',
+            'name' => 'id',
+            'type' => 'select_multiple',
+            'attribute' => 'full_name',
+            'entity' => 'artisttypes',
+            'model' => 'App\Models\Artist',
+            'tab' => 'Artistes'
+        ]);
+
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
@@ -143,5 +169,37 @@ class ShowCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function store()
+    {
+
+        $this->crud->getRequest()['slug'] = $this->slugify($this->crud->getRequest()['title']);
+
+        $response = $this->TraitStore();
+        return $response;
+    }
+
+    function slugify($text)
+    {
+        // Strip html tags
+        $text=strip_tags($text);
+        // Replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        // Transliterate
+        setlocale(LC_ALL, 'en_US.utf8');
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        // Remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+        // Trim
+        $text = trim($text, '-');
+        // Remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+        // Lowercase
+        $text = strtolower($text);
+        // Check if it is empty
+        if (empty($text)) { return 'n-a'; }
+        // Return result
+        return $text;
     }
 }
