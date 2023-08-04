@@ -2,7 +2,7 @@
 <div class="p-4 md:w-1/3 card h-100%">
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow my-2 mx-auto">
         <a href="{{route('show.show', ['slug' => $item['slug']])}}">
-            <img class="rounded-t-lg" src="{{Storage::url($item->poster_url)}}" alt="" />
+            <img style="width: 400px; height: 300px" class="rounded-t-lg object-cover" src="{{Storage::url($item->poster_url)}}" alt="{{$item['title']}}" />
         </a>
         <div class="p-5 m-h-300">
             <a href="{{route('show.show', ['slug' => $item['slug']])}}">
@@ -15,7 +15,11 @@
             </p>
             <table class="w-[100%] card-class" >
                 <thead class="card-th">
+                @if($item['price'] == 0)
+                    <th>Prix libre</th>
+                @else
                 <th>{{$item['price']}} € </th>
+                @endif
                 <th>{{$item['representationString']}}</th>
                 </thead>
             </table>

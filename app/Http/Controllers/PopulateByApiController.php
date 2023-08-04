@@ -16,11 +16,10 @@ class PopulateByApiController extends Controller
     public function index(){
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer c86ee7cb-fa9c-3990-9d12-11636bbbfb06'
+            'Authorization' => 'Bearer 458f8067-5fa3-3054-8455-064fd9d2a30b'
         ])->get('https://api.brussels:443/api/agenda/0.0.1/events/category?mainCategory=49');
 
         $data = $response->json();
-
 
         foreach($data['response']['results']['event'] as $event){
 
@@ -75,8 +74,6 @@ class PopulateByApiController extends Controller
 
             if(count($existingShows) == 0){
 
-                $show = new Show();
-
                 if(array_key_exists('media', $event) && array_key_exists('link', $event['media'])){
                     $path = $event['media']['link'];
                     $fileName = explode('/', $path);
@@ -95,6 +92,20 @@ class PopulateByApiController extends Controller
                 $show->description = $event['translations']['fr']['longdescr'];
                 $show->location_id = $location->id;
                 $show->bookable = 1;
+
+                if(array_key_exists('prices', $event)){
+                    if(count($event['prices']) > 2){
+                        foreach($event['prices'] as $price){
+                            if($price['translations']['fr']['name'] == 'Normal'){
+                                $show->price = $price['value'];
+                            }
+                        }
+                    }
+                }
+                else{
+                    $show->price = 0;
+                }
+
                 $show->price = empty($event['prices'][3]['value']) ? 0 : $event['prices'][3]['value'];
                 $show->slug = substr($this->slugify($event['translations']['fr']['name']), 0, 60);
 
