@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return redirect()->route('show.index');
 })->name('home');
 
 Route::get('/populate', [\App\Http\Controllers\PopulateByApiController::class, 'index']);

@@ -56,11 +56,11 @@ class StripeController extends Controller
 
         $reservation->save();
 
-        return redirect()->route('stripe.success', ['id' => $request->get('representation_id'), 'qte' => $request->get('quantity')]);
+        return redirect()->route('profile.edit')->with('success', 'Votre réservation a bien été enregistrée');
     }
 
     public function success($id, $qte){
-
+        return redirect()->route('profile.edit')->with('success', 'Votre réservations a bien été enregistrée');
     }
 
     public function cancel($id){
