@@ -17,7 +17,7 @@ class PopulateByApiController extends Controller
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer 3889e201-45ca-3cc8-93ed-37cae78f381a'
+        'Authorization' => 'Bearer ' . env('BX_BEARER_TOKEN'),
         ])->get('https://api.brussels:443/api/agenda/0.0.1/events/category?mainCategory=49&subCategory=50&page=1');
 
         $data = $response->json();
