@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -65,7 +66,10 @@ class Show extends Model
 
     public function representationsString(){
 
-        $count = count($this->representations);
+        $representations = $this->representations()->whereDate('when', '>=', Carbon::now())->get();
+
+
+        $count = count($representations);
         if($count == 0){
             return "Pas de représentations";
         }

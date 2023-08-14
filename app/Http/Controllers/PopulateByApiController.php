@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Storage;
 
 class PopulateByApiController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer 17be0a0f-6a94-3bcd-b461-6cb5c133ca21'

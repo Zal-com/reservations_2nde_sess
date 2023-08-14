@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Show;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ShowController extends Controller
@@ -52,7 +53,7 @@ class ShowController extends Controller
     {
         $show = Show::where('slug', $slug)->first();
 
-        $representations = $show->representations->sortBy('when');
+        $representations = $show->representations()->whereDate('when', '>=', Carbon::now())->get();
 
         $artistes = $show->artistsTypes;
         //Récupérer les artistes du spectacle et les grouper par type
