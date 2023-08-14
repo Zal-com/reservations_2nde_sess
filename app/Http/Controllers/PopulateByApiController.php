@@ -16,7 +16,7 @@ class PopulateByApiController extends Controller
     public function index(){
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer 458f8067-5fa3-3054-8455-064fd9d2a30b'
+            'Authorization' => 'Bearer 17be0a0f-6a94-3bcd-b461-6cb5c133ca21'
         ])->get('https://api.brussels:443/api/agenda/0.0.1/events/category?mainCategory=49');
 
         $data = $response->json();
