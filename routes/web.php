@@ -22,7 +22,7 @@ Route::get('/', function () {
     return redirect()->route('show.index');
 })->name('home');
 
-Route::get('/populate', [\App\Http\Controllers\PopulateByApiController::class, 'index']);
+//Route::get('/populate', [\App\Http\Controllers\PopulateByApiController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

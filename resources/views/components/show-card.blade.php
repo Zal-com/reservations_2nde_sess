@@ -18,9 +18,17 @@
                 @if($item['price'] == 0)
                     <th>Prix libre</th>
                 @else
-                <th>{{$item['price']}} € </th>
+                    <th>{{$item['price']}} € </th>
                 @endif
-                <th>{{$item['representationString']}}</th>
+                <th>
+                    @php
+                        try{
+                            echo $item->representationsString();
+                        } catch(\Exception $e){
+                            echo $item['representationString'];
+                        }
+                    @endphp
+                </th>
                 </thead>
             </table>
             <div class="flex justify-end">

@@ -18,11 +18,11 @@
         background: #e7e7e7;
     }
 </style>
-<body class="font-primary">
+<body class="font-primary min-h-screen">
 <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded z-999 ">
     <div class="container flex flex-wrap items-center space-around justify-between mx-auto">
         <h5 class="text-2xl font-normal leading-normal mt-0 mb-2 text-indigo-500 ml-24">
-            <a href="{{route('home')}}">Take-A-Seat</a>
+            <a href="{{route('home')}}">{{env('APP_NAME')}}</a>
         </h5>
         <div class="flex md:order-2 mr-24">
             @guest()
@@ -52,11 +52,41 @@
         </div>
     </div>
 </nav>
-<div class="container relative mx-auto">
+<main class="container relative mx-auto min-vh-100">
     @yield('content')
-</div>
-<footer class="p-4">
-</footer>
+</main>
+<div class="w-100 min-h-[60px] text-white" style="background: var(--text)">
+    <!-- Section: Links  -->
+    <div class="">
+        <div class="container grid grid-cols-3 grid-rows-1 gap-0 text-center text-md-start mt-5">
+                <!-- Grid column -->
+                <div class="mx-auto mb-4">
+                    <p>{{env('APP_NAME')}}</p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="fw-bold text-secondary mb-4 fs-18">
+                        {{__('Liens utiles')}}
+                    </h6>
+                    <p>
+                        <a href="{{route('show.index') }}" class="text-decoration-none text-white">Shows </a>
+                    </p>
+                    <p>
+                        <a href="{{ route('location.index') }}" class="text-decoration-none text-white">Theaters</a>
+                    </p>
+                    @guest
+                        <p>
+                            <a href="{{route('login', app()->getLocale())}}" class="text-decoration-none text-white">{{__('Login')}}</a>
+                        </p>
+                    @endguest
+                </div>
+            </div>
+        </div>
+        <!-- Section: Links  -->
+    </div>
 @livewireScripts
 @yield('scripts')
 </body>

@@ -3,9 +3,9 @@
 @section('title', 'Fiche d\'un lieu de spectacle')
 
 @section('content')
-    <article>
+    <div class="pl-40">
         <h1>{{ $location->designation }}</h1>
-        <address>
+        <div>
             <p>{{ $location->address }}</p>
             <p>{{ $location->locality->postal_code }}
                 {{ $location->locality->locality }}
@@ -22,15 +22,14 @@
             @else
                 <p>Pas de téléphone</p>
             @endif
-        </address>
+        </div>
 
         <h2>Liste des spectacles</h2>
-        <ul>
-            @foreach($location->shows as $show)
-                <li>{{ $show->title }}</li>
-            @endforeach
-        </ul>
-    </article>
 
-    <nav><a href="{{ route('location.list') }}">Retour à l'index</a></nav>
+        @foreach($location->shows as $show)
+            <x-show-card :item="$show"/>
+        @endforeach
+    </div>
+
+    <nav><a href="{{ route('location.index') }}">Retour à l'index</a></nav>
 @endsection
